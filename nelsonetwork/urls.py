@@ -15,8 +15,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from nelsonetworkapi.views.auth import check_user, register_user
+from nelsonetworkapi.views import UserView, NetworkView, DeviceView, NetworkDeviceView, DocumentationView
 
+# Initialize router
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'users', UserView, 'user')
+router.register(r'networks', NetworkView, 'network')
+router.register(r'devices', DeviceView, 'device')
+router.register(r'networkdevices', NetworkDeviceView, 'networkdevice')
+router.register(r'documentations', DocumentationView, 'documentation')
+
+
+
+
+# Define URL patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),  # Include router-generated URLs
+    path('checkuser/', check_user, name='check_user'),  # Custom endpoint
+    path('registeruser/', register_user, name='register_user'),  # Custom endpoint
 ]
