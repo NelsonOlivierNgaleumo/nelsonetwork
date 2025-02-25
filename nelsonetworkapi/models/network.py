@@ -11,4 +11,4 @@ class Network(models.Model):
     network_ip_address = models.GenericIPAddressField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
-    devices = models.ManyToManyField('Device', through='NetworkDevice')
+    device_id = models.ForeignKey('Device', on_delete=models.CASCADE)

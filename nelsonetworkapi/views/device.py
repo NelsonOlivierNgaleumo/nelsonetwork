@@ -2,7 +2,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.core.exceptions import ObjectDoesNotExist
-from nelsonetworkapi.models import Device, Network, User
+from nelsonetworkapi.models import Device, User
 
 
 class DeviceView(ViewSet):
@@ -11,7 +11,7 @@ class DeviceView(ViewSet):
     def retrieve(self, request, pk):
         """Handle GET requests for a single device"""
         try:
-            device = Device.objects.get(device_id=pk)
+            device = Device.objects.get(id=pk)  # ✅ Use `id` instead of `device_id`
             serializer = DeviceSerializer(device)
             return Response(serializer.data)
         except Device.DoesNotExist:
@@ -27,7 +27,6 @@ class DeviceView(ViewSet):
         """Handle POST requests to create a new device"""
         try:
             user = User.objects.get(pk=request.data["user_id"])  # Validate user
-            network = Network.objects.get(pk=request.data["network_id"]) if "network_id" in request.data else None
 
             device = Device.objects.create(
                 device_name=request.data["device_name"],
@@ -35,7 +34,6 @@ class DeviceView(ViewSet):
                 age_of_device=request.data["age_of_device"],
                 device_ip=request.data["device_ip"],
                 device_type=request.data["device_type"],
-                network=network,
                 device_description=request.data["device_description"],
                 serial_number=request.data["serial_number"],
                 mac_address=request.data["mac_address"],
@@ -49,13 +47,13 @@ class DeviceView(ViewSet):
 
         except KeyError as e:
             return Response({"message": f"Missing required field: {e.args[0]}"}, status=status.HTTP_400_BAD_REQUEST)
-        except ObjectDoesNotExist:
-            return Response({"message": "User or Network not found"}, status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response({"message": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk):
         """Handle PUT requests to update a device"""
         try:
-            device = Device.objects.get(device_id=pk)
+            device = Device.objects.get(id=pk)  # ✅ Use `id` instead of `device_id`
 
             # Update fields (only if provided)
             device.device_name = request.data.get("device_name", device.device_name)
@@ -72,8 +70,6 @@ class DeviceView(ViewSet):
             # Handle Foreign Key updates
             if "user_id" in request.data:
                 device.user = User.objects.get(pk=request.data["user_id"])
-            if "network_id" in request.data:
-                device.network = Network.objects.get(pk=request.data["network_id"])
 
             device.save()
             serializer = DeviceSerializer(device)
@@ -83,13 +79,11 @@ class DeviceView(ViewSet):
             return Response({"message": "Device not found"}, status=status.HTTP_404_NOT_FOUND)
         except User.DoesNotExist:
             return Response({"message": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
-        except Network.DoesNotExist:
-            return Response({"message": "Network not found"}, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk):
         """Handle DELETE requests to delete a device"""
         try:
-            device = Device.objects.get(device_id=pk)
+            device = Device.objects.get(id=pk)  # ✅ Use `id` instead of `device_id`
             device.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Device.DoesNotExist:
@@ -100,7 +94,8 @@ class DeviceSerializer(serializers.ModelSerializer):
     """JSON serializer for devices"""
     class Meta:
         model = Device
-        fields = ['device_id', 'device_name', 'device_image', 'age_of_device', 
-                  'device_ip', 'device_type', 'network', 'device_description', 
-                  'serial_number', 'mac_address', 'location', 'user', 'last_software_update']
-        depth = 1  # To include related User and Network details
+        fields = ['device_id', 'device_name', 'device_image', 'age_of_device',
+                  'device_ip', 'device_type', 'device_description',
+                  'serial_number', 'mac_address', 'location', 'user',
+                  'last_software_update']
+        depth = 1  # To include related User details

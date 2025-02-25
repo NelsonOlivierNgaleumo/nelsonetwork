@@ -1,4 +1,3 @@
-from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
@@ -10,7 +9,7 @@ class NetworkView(ViewSet):
     """Network API ViewSet"""
 
     def retrieve(self, request, pk):
-        """Handle GET requests for a single network"""
+        """Handle GET request for a single network"""
         try:
             network = Network.objects.get(network_id=pk)
             serializer = NetworkSerializer(network)
@@ -19,16 +18,16 @@ class NetworkView(ViewSet):
             return Response({'message': 'Network not found'}, status=status.HTTP_404_NOT_FOUND)
 
     def list(self, request):
-        """Handle GET requests to list all networks"""
+        """Handle GET request to list all networks"""
         networks = Network.objects.all()
         serializer = NetworkSerializer(networks, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        """Handle POST requests to create a new network"""
+        """Handle POST request to create a new network"""
         try:
             user = User.objects.get(pk=request.data["user_id"])  # Validate user
-            device = Device.objects.get(pk=request.data["device_id"]) if "device_id" in request.data else None
+            device = Device.objects.get(pk=request.data["device_id"])  # Validate device
 
             network = Network.objects.create(
                 network_name=request.data["network_name"],
@@ -38,7 +37,7 @@ class NetworkView(ViewSet):
                 network_ip_address=request.data["network_ip_address"],
                 user=user,
                 location=request.data["location"],
-                device=device
+                device_id=device
             )
 
             serializer = NetworkSerializer(network)
@@ -46,11 +45,13 @@ class NetworkView(ViewSet):
 
         except KeyError as e:
             return Response({"message": f"Missing required field: {e.args[0]}"}, status=status.HTTP_400_BAD_REQUEST)
-        except ObjectDoesNotExist:
-            return Response({"message": "User or Device not found"}, status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response({"message": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
+        except Device.DoesNotExist:
+            return Response({"message": "Device not found"}, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk):
-        """Handle PUT requests to update a network"""
+        """Handle PUT request to update a network"""
         try:
             network = Network.objects.get(network_id=pk)
 
@@ -65,9 +66,8 @@ class NetworkView(ViewSet):
             # Handle Foreign Key updates
             if "user_id" in request.data:
                 network.user = User.objects.get(pk=request.data["user_id"])
-
             if "device_id" in request.data:
-                network.device = Device.objects.get(pk=request.data["device_id"])
+                network.device_id = Device.objects.get(pk=request.data["device_id"])
 
             network.save()
             serializer = NetworkSerializer(network)
@@ -81,7 +81,7 @@ class NetworkView(ViewSet):
             return Response({"message": "Device not found"}, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk):
-        """Handle DELETE requests to delete a network"""
+        """Handle DELETE request to delete a network"""
         try:
             network = Network.objects.get(network_id=pk)
             network.delete()
@@ -94,6 +94,6 @@ class NetworkSerializer(serializers.ModelSerializer):
     """JSON serializer for networks"""
     class Meta:
         model = Network
-        fields = ['network_id', 'network_name', 'network_type', 'number_of_staff', 
-                  'setup_recommendation', 'network_ip_address', 'user', 'location', 'device']
+        fields = ['network_id', 'network_name', 'network_type', 'number_of_staff',
+                  'setup_recommendation', 'network_ip_address', 'user', 'location', 'device_id']
         depth = 1  # To include related User and Device details

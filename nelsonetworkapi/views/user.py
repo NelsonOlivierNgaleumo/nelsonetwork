@@ -3,77 +3,63 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from nelsonetworkapi.models import User
 
 
 class UserView(ViewSet):
-    """User view"""
+    """User ViewSet for CRUD operations"""
 
-    def retrieve(self, request, pk):
-        """Handle GET requests for a single user"""
+    def list(self, request):
+        """GET all users"""
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        """GET a single user"""
         try:
-            nn_user = User.objects.get(user_id=pk)  # Use `user_id` as primary key
-            serializer = UserSerializer(nn_user)
+            user = User.objects.get(pk=pk)
+            serializer = UserSerializer(user)
             return Response(serializer.data)
         except User.DoesNotExist:
             return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    def list(self, request):
-        """Handle GET requests to retrieve all users"""
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)  
-
     def create(self, request):
-        """Handle POST operations for creating a user"""
-        try:
-            nn_user = User.objects.create(
-                username=request.data["username"],
-                password=make_password(request.data["password"]),  # Hash password
-                email=request.data["email"],
-                role=request.data.get("role", "user")  # Default role if not provided
-            )
-            serializer = UserSerializer(nn_user)
+        """POST create a new user"""
+        data = request.data.copy()
+        data['password'] = make_password(data['password'])  # Hash password before saving
+        serializer = UserSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except KeyError as e:
-            return Response(
-                {"message": f"Missing required field: {e.args[0]}"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, pk):
-        """Handle PUT requests for updating a user"""
+    def update(self, request, pk=None):
+        """PUT update a user"""
         try:
-            nn_user = User.objects.get(user_id=pk)
+            user = User.objects.get(pk=pk)
+            data = request.data.copy()
+            
+            if 'password' in data:
+                data['password'] = make_password(data['password'])  # Hash password before saving
 
-            # Update fields (ensuring field names match the model)
-            nn_user.username = request.data.get("username", nn_user.username)
-            if "password" in request.data:
-                nn_user.password = make_password(request.data["password"])  # Secure password update
-            nn_user.email = request.data.get("email", nn_user.email)
-            nn_user.role = request.data.get("role", nn_user.role)
-            nn_user.save()
+            serializer = UserSerializer(user, data=data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            serializer = UserSerializer(nn_user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            return Response(
-                {"message": "User not found."},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        except KeyError as e:
-            return Response(
-                {"message": f"Missing required field: {e.args[0]}"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    def destroy(self, request, pk):
-        """Handle DELETE requests to delete a user"""
+    def destroy(self, request, pk=None):
+        """DELETE a user"""
         try:
-            nn_user = User.objects.get(user_id=pk)
-            nn_user.delete()
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
+            user = User.objects.get(pk=pk)
+            user.delete()
+            return Response({'message': 'User deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -82,4 +68,11 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users"""
     class Meta:
         model = User
-        fields = ['user_id', 'username', 'email', 'role']
+        fields = ['id', 'username', 'email', 'password', 'role']
+        
+    def create(self, validated_data):
+            """Override to hash the password before saving"""
+            user = User(**validated_data)
+            user.password = make_password(validated_data['password'])  # Hash password
+            user.save()
+            return user
