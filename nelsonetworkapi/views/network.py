@@ -11,7 +11,7 @@ class NetworkView(ViewSet):
     def retrieve(self, request, pk):
         """Handle GET request for a single network"""
         try:
-            network = Network.objects.get(network_id=pk)
+            network = Network.objects.get(pk=pk)
             serializer = NetworkSerializer(network)
             return Response(serializer.data)
         except Network.DoesNotExist:
@@ -53,7 +53,7 @@ class NetworkView(ViewSet):
     def update(self, request, pk):
         """Handle PUT request to update a network"""
         try:
-            network = Network.objects.get(network_id=pk)
+            network = Network.objects.get(pk=pk)
 
             # Update fields (only if provided)
             network.network_name = request.data.get("network_name", network.network_name)
@@ -83,7 +83,7 @@ class NetworkView(ViewSet):
     def destroy(self, request, pk):
         """Handle DELETE request to delete a network"""
         try:
-            network = Network.objects.get(network_id=pk)
+            network = Network.objects.get(pk=pk)
             network.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Network.DoesNotExist:

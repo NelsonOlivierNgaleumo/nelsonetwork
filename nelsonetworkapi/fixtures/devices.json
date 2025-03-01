@@ -1,0 +1,110 @@
+[
+  {
+    "model": "nelsonetworkapi.device",
+    "pk":1,
+    "fields": {
+      "device_id": 1,
+      "device_name":"Alpha",
+      "device_image":"http://dummyimage.com/110x100.png/5fa2dd/ffffff",
+      "age_of_device":"27-643-8944",
+      "device_ip":"75.17.136.164",
+      "device_type":"Tin",
+      "device_description":"vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan",
+      "serial_number":"",
+      "mac_address":"1C-84-B8-62-61-B7",
+      "location":"Apt 1938",
+      "user":1,
+      "last_software_update":"8/9/2024"}
+  },
+
+{
+    "model": "nelsonetworkapi.device",
+    "pk": 2,
+    "fields": {
+      "device_id": 2,
+      "device_name": "Viva",
+      "device_image": "http://dummyimage.com/120x100.png/dddddd/000000",
+      "age_of_device": "96-368-2084",
+      "device_ip": "74.159.232.204",
+      "device_type": "Solarbreeze",
+      "device_description": "nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget",
+      "serial_number": "",
+      "mac_address": "5A-EC-62-C7-FF-23",
+      "location": "Room 1870",
+      "user": 2,
+      "last_software_update": "9/22/2024"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.device",
+    "pk": 3,
+    "fields": {
+      "device_id": 3,
+      "device_name": "Toughjoyfax",
+      "device_image": "http://dummyimage.com/156x100.png/ff4444/ffffff",
+      "age_of_device": "62-727-0559",
+      "device_ip": "114.243.3.250",
+      "device_type": "Cardify",
+      "device_description": "praesent id massa id nisl venenatis lacinia aenean sit amet",
+      "serial_number": "",
+      "mac_address": "81-44-7A-CC-6C-C8",
+      "location": "Apt 1422",
+      "user": 3,
+      "last_software_update": "2/29/2024"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.device",
+    "pk": 4,
+    "fields": {
+      "device_id": 4,
+      "device_name": "Wrapsafe",
+      "device_image": "http://dummyimage.com/128x100.png/ff4444/ffffff",
+      "age_of_device": "43-002-8146",
+      "device_ip": "30.248.144.45",
+      "device_type": "Toughjoyfax",
+      "device_description": "sit amet cursus id turpis integer aliquet massa id lobortis convallis",
+      "serial_number": "",
+      "mac_address": "F1-AD-73-9D-B6-45",
+      "location": "Apt 1784",
+      "user": 4,
+      "last_software_update": "6/5/2024"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.device",
+    "pk": 5,
+    "fields": {
+      "device_id": 5,
+      "device_name": "Tempsoft",
+      "device_image": "http://dummyimage.com/205x100.png/dddddd/000000",
+      "age_of_device": "70-269-5107",
+      "device_ip": "78.11.208.227",
+      "device_type": "Aerified",
+      "device_description": "fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in",
+      "serial_number": "",
+      "mac_address": "65-0F-57-E2-E5-C0",
+      "location": "Suite 45",
+      "user": 5,
+      "last_software_update": "7/7/2024"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.device",
+    "pk": 6,
+    "fields": {
+      "device_id": 6,
+      "device_name": "Tempsoftest",
+      "device_image": "http://dummyimage.com/205x100.png/dddddd/000000",
+      "age_of_device": "70-269-5107",
+      "device_ip": "194.141.28.227",
+      "device_type": "Aerified",
+      "device_description": "fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in",
+      "serial_number": "",
+      "mac_address": "19-0F-57-E2-E5-C4",
+      "location": "Suite 97",
+      "user": 6,
+      "last_software_update": "4/15/2025"
+    }
+  }
+]

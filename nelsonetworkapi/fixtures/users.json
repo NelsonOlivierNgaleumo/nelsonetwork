@@ -1,10 +1,103 @@
-[{"username":"Justen","password":"dD5)Q>Z*\"Eon%","email":"jszymanski0@hud.gov","role":"Construction Manager"},
-{"username":"Hewe","password":"tF8.C,T2G3Z","email":"hkeynd1@ameblo.jp","role":"Construction Worker"},
-{"username":"Brendan","password":"bU8`Wr6QVQWb)","email":"bsargint2@fda.gov","role":"Construction Expeditor"},
-{"username":"Adrianne","password":"rJ1<s{ws#@a","email":"ablaker3@shareasale.com","role":"Supervisor"},
-{"username":"Rubie","password":"cW6~1ZWF5N)XJwn","email":"rflarity4@theatlantic.com","role":"Construction Expeditor"},
-{"username":"Amii","password":"oO2_1jXJUS","email":"amccluskey5@jiathis.com","role":"Construction Worker"},
-{"username":"Annecorinne","password":"hP5@!>!(Hl}Ee","email":"awheaton6@arizona.edu","role":"Electrician"},
-{"username":"Gale","password":"fN3%=*#s2Nokdre","email":"gedmans7@ftc.gov","role":"Construction Worker"},
-{"username":"Patty","password":"nQ1_ZB5)~","email":"pmayman8@dmoz.org","role":"Construction Expeditor"},
-{"username":"Lorry","password":"lS2#?b8\"@(\\CpZ\"+","email":"lwason9@live.com","role":"Project Manager"}]
+[
+  {
+    "model": "nelsonetworkapi.user",
+    "pk":1,
+    "fields": {
+
+     "username":"Justen",
+     "password":"dD5)Q>Z*\"Eon%",
+     "email":"jszymanski0@hud.gov",
+     "role":"Construction Manager"}
+    },
+
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 2,
+    "fields": {
+      "username": "Hewe",
+      "password": "tF8.C,T2G3Z",
+      "email": "hkeynd1@ameblo.jp",
+      "role": "Construction Worker"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 3,
+    "fields": {
+      "username": "Brendan",
+      "password": "bU8`Wr6QVQWb)",
+      "email": "bsargint2@fda.gov",
+      "role": "Construction Expeditor"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 4,
+    "fields": {
+      "username": "Adrianne",
+      "password": "rJ1<s{ws#@a",
+      "email": "ablaker3@shareasale.com",
+      "role": "Supervisor"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 5,
+    "fields": {
+      "username": "Rubie",
+      "password": "cW6~1ZWF5N)XJwn",
+      "email": "rflarity4@theatlantic.com",
+      "role": "Construction Expeditor"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 6,
+    "fields": {
+      "username": "Amii",
+      "password": "oO2_1jXJUS",
+      "email": "amccluskey5@jiathis.com",
+      "role": "Construction Worker"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 7,
+    "fields": {
+      "username": "Annecorinne",
+      "password": "hP5@!>!(Hl}Ee",
+      "email": "awheaton6@arizona.edu",
+      "role": "Electrician"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 8,
+    "fields": {
+      "username": "Gale",
+      "password": "fN3%=*#s2Nokdre",
+      "email": "gedmans7@ftc.gov",
+      "role": "Construction Worker"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 9,
+    "fields": {
+      "username": "Patty",
+      "password": "nQ1_ZB5)~",
+      "email": "pmayman8@dmoz.org",
+      "role": "Construction Expeditor"
+    }
+  },
+  {
+    "model": "nelsonetworkapi.user",
+    "pk": 10,
+    "fields": {
+      "username": "Lorry",
+      "password": "lS2#?b8\"@(\\CpZ\"+",
+      "email": "lwason9@live.com",
+      "role": "Project Manager"
+    }
+  }
+]
