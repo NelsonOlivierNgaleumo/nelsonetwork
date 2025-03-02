@@ -90,10 +90,10 @@ class DeviceTests(APITestCase):
 # Test to UPDATE A Device
 # run this command: python manage.py test nelsonetworkapi.tests.test_devices    
 
-def test_update_device(self):
+    def test_update_device(self):
         """Test updating a device."""
         device = Device.objects.first()
-        url = f'/devices/{device.device_id}/'
+        url = f'/devices/{device.device_id}'
         
         updated_data = {
       "device_name": "Tempsoft",
@@ -125,3 +125,16 @@ def test_update_device(self):
         self.assertEqual(device.location, updated_data["location"])
         self.assertEqual(device.user.id, updated_data["user_id"])
         self.assertEqual(device.last_software_update, updated_data["last_software_update"])
+
+# Test to DELETE A Device
+# run this command: python manage.py test nelsonetworkapi.tests.test_devices    
+
+    def test_delete_device(self):
+        """Test deleting a device."""
+        device = Device.objects.first()
+        url = f'/devices/{device.device_id}'
+        
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        
+        response = self.client.get(url)
