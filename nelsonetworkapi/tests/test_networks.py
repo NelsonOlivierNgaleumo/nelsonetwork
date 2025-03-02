@@ -79,3 +79,42 @@ class NetworkTests(APITestCase):
         
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(expected.data, response.data)
+
+# Test to UPDATE a Network
+# run this command: python manage.py test nelsonetworkapi.tests.test_networks
+
+
+    def test_change_network(self):
+        """test update network
+        """
+        network = Network.objects.first()
+        
+        url = f'/networks/{network.network_id}'
+        
+        updated_network = {
+            "network_name": "Office Network",
+            "network_type": "LAN",
+            "number_of_staff": 15,
+            "setup_recommendation": "Use VLAN segmentation",
+            "network_ip_address": "192.168.1.1",
+            "location": "Headquarters",
+            "user_id": self.user.id,
+            "device_id": self.device.device_id
+        }
+        
+        response = self.client.put(url, updated_network, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)  # Ensure update is successful
+
+        # Refresh the tour object to reflect any changes in the database
+        network.refresh_from_db()
+
+        # Assert that the updated values match
+        self.assertEqual(updated_network["network_name"], network.network_name)
+        self.assertEqual(updated_network["network_type"], network.network_type)
+        self.assertEqual(updated_network["number_of_staff"], network.number_of_staff)
+        self.assertEqual(updated_network["setup_recommendation"], network.setup_recommendation)
+        self.assertEqual(updated_network["network_ip_address"], network.network_ip_address)  
+        self.assertEqual(updated_network["location"], network.location) 
+        self.assertEqual(updated_network["user_id"], network.user_id)
+        self.assertEqual(updated_network["device_id"], network.device_id.pk) 
