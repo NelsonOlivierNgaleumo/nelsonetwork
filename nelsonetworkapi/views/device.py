@@ -11,7 +11,7 @@ class DeviceView(ViewSet):
     def retrieve(self, request, pk):
         """Handle GET requests for a single device"""
         try:
-            device = Device.objects.get(id=pk)  # ✅ Use `id` instead of `device_id`
+            device = Device.objects.get(id=pk)  
             serializer = DeviceSerializer(device)
             return Response(serializer.data)
         except Device.DoesNotExist:
@@ -53,7 +53,7 @@ class DeviceView(ViewSet):
     def update(self, request, pk):
         """Handle PUT requests to update a device"""
         try:
-            device = Device.objects.get(pk=pk)  # ✅ Use `id` instead of `device_id`
+            device = Device.objects.get(pk=pk) 
 
             # Update fields (only if provided)
             device.device_name = request.data.get("device_name", device.device_name)
@@ -83,7 +83,7 @@ class DeviceView(ViewSet):
     def destroy(self, request, pk):
         """Handle DELETE requests to delete a device"""
         try:
-            device = Device.objects.get(pk=pk)  # ✅ Use `id` instead of `device_id`
+            device = Device.objects.get(pk=pk) 
             device.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Device.DoesNotExist:

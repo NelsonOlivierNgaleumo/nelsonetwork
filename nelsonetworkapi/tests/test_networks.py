@@ -12,7 +12,7 @@ class NetworkTests(APITestCase):
         """Set up test dependencies."""
         self.user = User.objects.first()
         self.device = Device.objects.create(device_name="Test Device", device_ip="192.168.1.100", user=self.user)
-        self.client.force_authenticate(user=self.user)  # Authenticate user for request
+        # self.client.force_authenticate(user=self.user)  # Authenticate user for request
 
 # Test to create a New Network
 # run this command: python manage.py test nelsonetworkapi.tests.test_networks
