@@ -11,7 +11,7 @@ class DeviceView(ViewSet):
     def retrieve(self, request, pk):
         """Handle GET requests for a single device"""
         try:
-            device = Device.objects.get(id=pk)  
+            device = Device.objects.get(device_id=pk)  
             serializer = DeviceSerializer(device)
             return Response(serializer.data)
         except Device.DoesNotExist:
