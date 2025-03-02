@@ -45,7 +45,7 @@ class NetworkTests(APITestCase):
         
         self.assertEqual(expected, response.data)
 
-# Test to create a Single Network
+# Test to GET a Single Network
 # run this command: python manage.py test nelsonetworkapi.tests.test_networks
 
 
@@ -63,4 +63,19 @@ class NetworkTests(APITestCase):
         expected = NetworkSerializer(network)
         
         self.assertEqual(expected.data, response.data)
-   
+
+# Test to lIST all the Networks
+# run this command: python manage.py test nelsonetworkapi.tests.test_networks
+
+    def test_list_networks(self):
+        """Test list networks
+        """
+        url = '/networks'
+        
+        response = self.client.get(url)
+        
+        all_networks = Network.objects.all()
+        expected = NetworkSerializer(all_networks, many=True)
+        
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(expected.data, response.data)
