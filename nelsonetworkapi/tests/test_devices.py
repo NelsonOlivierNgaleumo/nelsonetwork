@@ -40,7 +40,7 @@ class DeviceTests(APITestCase):
       "device_ip": "78.11.208.227",
       "device_type": "Aerified",
       "device_description": "fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in",
-      "serial_number": "",
+      "serial_number": "XYZ98765",
       "mac_address": "65-0F-57-E2-E5-C0",
       "location": "Suite 45",
       "user_id": self.user.id,
@@ -86,4 +86,42 @@ class DeviceTests(APITestCase):
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(expected, response.data)
-    
+
+# Test to UPDATE A Device
+# run this command: python manage.py test nelsonetworkapi.tests.test_devices    
+
+def test_update_device(self):
+        """Test updating a device."""
+        device = Device.objects.first()
+        url = f'/devices/{device.device_id}/'
+        
+        updated_data = {
+      "device_name": "Tempsoft",
+      "device_image": "http://dummyimage.com/205x100.png/dddddd/000000",
+      "age_of_device": "70-269-5107",
+      "device_ip": "78.11.208.227",
+      "device_type": "Aerified",
+      "device_description": "fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in",
+      "serial_number": "XYZ98765",
+      "mac_address": "65-0F-57-E2-E5-C0",
+      "location": "Suite 45",
+      "user_id": self.user.id,
+      "last_software_update": "7/7/2024"
+        }
+        
+        response = self.client.put(url, updated_data, format='json')
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        device.refresh_from_db()
+        
+        self.assertEqual(device.device_name, updated_data["device_name"])
+        self.assertEqual(device.device_image, updated_data["device_image"])
+        self.assertEqual(device.age_of_device, updated_data["age_of_device"])
+        self.assertEqual(device.device_ip, updated_data["device_ip"])
+        self.assertEqual(device.device_type, updated_data["device_type"])
+        self.assertEqual(device.device_description, updated_data["device_description"])
+        self.assertEqual(device.serial_number, updated_data["serial_number"])
+        self.assertEqual(device.mac_address, updated_data["mac_address"])
+        self.assertEqual(device.location, updated_data["location"])
+        self.assertEqual(device.user.id, updated_data["user_id"])
+        self.assertEqual(device.last_software_update, updated_data["last_software_update"])
