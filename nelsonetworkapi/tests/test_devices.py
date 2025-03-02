@@ -90,10 +90,10 @@ class DeviceTests(APITestCase):
 # Test to UPDATE A Device
 # run this command: python manage.py test nelsonetworkapi.tests.test_devices    
 
-def test_update_device(self):
+    def test_update_device(self):
         """Test updating a device."""
         device = Device.objects.first()
-        url = f'/devices/{device.device_id}/'
+        url = f'/devices/{device.device_id}'
         
         updated_data = {
       "device_name": "Tempsoft",
@@ -129,7 +129,7 @@ def test_update_device(self):
 # Test to DELETE A Device
 # run this command: python manage.py test nelsonetworkapi.tests.test_devices    
 
-def test_delete_device(self):
+    def test_delete_device(self):
         """Test deleting a device."""
         device = Device.objects.first()
         url = f'/devices/{device.device_id}'
