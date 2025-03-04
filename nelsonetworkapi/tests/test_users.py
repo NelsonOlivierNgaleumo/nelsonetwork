@@ -79,3 +79,13 @@ class UserTests(APITestCase):
         self.assertEqual(self.user.email, updated_data["email"])
         self.assertEqual(self.user.role, updated_data["role"])
     
+        # Test to DELETE a user
+        # run this command: python manage.py test nelsonetworkapi.tests.test_users
+        
+    def test_delete_user(self):
+        """Test deleting a user."""
+        url = reverse("user-detail", args=[self.user.id])
+        response = self.client.delete(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(User.objects.filter(id=self.user.id).exists())
