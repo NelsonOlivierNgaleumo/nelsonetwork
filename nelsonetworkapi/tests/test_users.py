@@ -43,3 +43,17 @@ class UserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         expected = UserSerializer(self.user).data
         self.assertEqual(expected, response.data)
+
+# Test listing all users
+# run this command: python manage.py test nelsonetworkapi.tests.test_users
+    
+    def test_list_users(self):
+        """Test listing all users."""
+        url = reverse("user-list")
+        response = self.client.get(url)
+        
+        all_users = User.objects.all()
+        expected = UserSerializer(all_users, many=True).data
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(expected, response.data)
