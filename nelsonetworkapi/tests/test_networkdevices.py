@@ -106,6 +106,7 @@ class NetworkDeviceTests(APITestCase):
             self.assertEqual(self.network_device.network.network_id, self.network.network_id)
             self.assertEqual(self.network_device.device.device_id, self.device.device_id)
 
+
 # Test to DELETE NetworkDevices
 # run this command: python manage.py test nelsonetworkapi.tests.test_networkdevices
 
@@ -119,3 +120,4 @@ class NetworkDeviceTests(APITestCase):
 
             response = self.client.get(url)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
