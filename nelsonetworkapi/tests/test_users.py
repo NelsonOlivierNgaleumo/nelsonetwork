@@ -57,3 +57,25 @@ class UserTests(APITestCase):
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(expected, response.data)
+        
+    # Test to UPDATE a user
+    # run this command: python manage.py test nelsonetworkapi.tests.test_users
+    
+    def test_update_user(self):
+        """Test updating a user."""
+        url = reverse("user-detail", args=[self.user.id])
+        updated_data = {
+            "username": "updateduser",
+            "email": "updated@example.com",
+            "password": "newpassword",
+            "role": "user"
+        }
+        
+        response = self.client.put(url, updated_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, updated_data["username"])
+        self.assertEqual(self.user.email, updated_data["email"])
+        self.assertEqual(self.user.role, updated_data["role"])
+    
