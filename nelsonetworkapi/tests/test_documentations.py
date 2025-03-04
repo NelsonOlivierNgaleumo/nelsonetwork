@@ -41,3 +41,13 @@ class DocumentationAPITests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["device_type"], "Router")
+
+# Test to LIST all Documentation
+# run this command: python manage.py test nelsonetworkapi.tests.test_documentations
+
+    def test_list_documentation(self):
+        """Test listing all Documentation instances."""
+        url = reverse("documentation-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
