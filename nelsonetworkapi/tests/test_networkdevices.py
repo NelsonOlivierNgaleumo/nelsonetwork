@@ -83,3 +83,25 @@ class NetworkDeviceTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(expected, response.data)
+
+# Test to UPDATE NetworkDevices
+# run this command: python manage.py test nelsonetworkapi.tests.test_networkdevices
+
+    def test_update_network_device(self):
+            """Test updating a network-device relationship."""
+            url = reverse("networkdevice-detail", kwargs={"pk": self.network_device.id})
+
+            updated_data = {
+                "network_id": self.network.network_id,  
+                "device_id": self.device.device_id,    
+                "status": "Pending"
+            }
+
+            response = self.client.put(url, updated_data, format='json')
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            self.network_device.refresh_from_db()
+            self.assertEqual(self.network_device.status, "Pending")
+            self.assertEqual(self.network_device.network.network_id, self.network.network_id)
+            self.assertEqual(self.network_device.device.device_id, self.device.device_id)
