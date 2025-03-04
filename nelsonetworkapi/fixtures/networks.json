@@ -11,7 +11,7 @@
         "setup_recommendation":"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",
         "network_ip_address":"219.186.6.238",
         "location":"Suite 90",
-        "user_id":1,
+        "user":1,
         "device_id": 1
       }
     },
@@ -28,7 +28,7 @@
         "setup_recommendation": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
         "network_ip_address": "233.46.108.200",
         "location": "Room 1303",
-        "user_id": 2,
+        "user": 2,
         "device_id":2
       }
     },
@@ -43,7 +43,7 @@
         "setup_recommendation": "Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
         "network_ip_address": "90.242.51.250",
         "location": "Suite 3",
-        "user_id": 3,
+        "user": 3,
         "device_id":3
       }
     },
@@ -58,7 +58,7 @@
         "setup_recommendation": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
         "network_ip_address": "115.245.132.121",
         "location": "2nd Floor",
-        "user_id": 4,
+        "user": 4,
         "device_id":4
       }
     },
@@ -73,7 +73,7 @@
         "setup_recommendation": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
         "network_ip_address": "192.191.252.252",
         "location": "PO Box 99651",
-        "user_id": 5,
+        "user": 5,
         "device_id":5
       }
     },
@@ -88,7 +88,7 @@
         "setup_recommendation": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.",
         "network_ip_address": "201.160.215.14",
         "location": "1st Floor",
-        "user_id": 6,
+        "user": 6,
         "device_id":6
       }
     }

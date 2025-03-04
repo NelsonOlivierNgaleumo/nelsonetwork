@@ -1,0 +1,20 @@
+[
+  {
+      "model": "nelsonetworkapi.networkdevice",
+      "pk": 1,
+      "fields": {
+          "network": 1,
+          "device": 1,
+          "status": "Active"
+      }
+  },
+  {
+      "model": "nelsonetworkapi.networkdevice",
+      "pk": 2,
+      "fields": {
+          "network": 2,
+          "device": 2,
+          "status": "Pending"
+      }
+  }
+]
