@@ -68,3 +68,18 @@ class NetworkDeviceTests(APITestCase):
 
         expected = NetworkDeviceSerializer(self.network_device).data
         self.assertEqual(expected, response.data)
+        
+# Test to LIST all NetworkDevices
+# run this command: python manage.py test nelsonetworkapi.tests.test_networkdevices
+
+    def test_list_network_devices(self):
+        """Test listing all network-device relationships."""
+        url = reverse("networkdevice-list")
+
+        response = self.client.get(url)
+
+        all_network_devices = NetworkDevice.objects.all()
+        expected = NetworkDeviceSerializer(all_network_devices, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(expected, response.data)
