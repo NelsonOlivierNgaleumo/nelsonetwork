@@ -11,6 +11,6 @@ This repository houses the backend server for Nelsonetwork App
 6- Ensure that the correct interpreter is selected
 7- Run python manage.py runserver to start the server
 
-Click on the following Link to the API Documentation
+Click on the following Link to the [API Documentation](https://documenter.getpostman.com/view/35134770/2sAYdhHVGZ)
 
 ### API DOCUMENTATION FOR NELSONETWORK https://documenter.getpostman.com/view/35134770/2sAYdhHVGZ
