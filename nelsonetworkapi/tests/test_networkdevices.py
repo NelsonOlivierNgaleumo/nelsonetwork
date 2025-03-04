@@ -31,6 +31,8 @@ class NetworkDeviceTests(APITestCase):
             device=self.device,
             status="Active"
         )
+# Test to create a New NetworkDevice
+# run this command: python manage.py test nelsonetworkapi.tests.test_networkdevices
 
     def test_create_network_device(self):
         """Test creating a new network-device relationship."""
@@ -51,4 +53,18 @@ class NetworkDeviceTests(APITestCase):
 
         new_network_device = NetworkDevice.objects.last()
         expected = NetworkDeviceSerializer(new_network_device).data
+        self.assertEqual(expected, response.data)
+
+# Test to GET a SINGLE a NetworkDevice
+# run this command: python manage.py test nelsonetworkapi.tests.test_networkdevices
+
+    def test_get_network_device(self):
+        """Test retrieving a single network-device relationship."""
+        url = reverse("networkdevice-detail", kwargs={"pk": self.network_device.id})
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        expected = NetworkDeviceSerializer(self.network_device).data
         self.assertEqual(expected, response.data)
