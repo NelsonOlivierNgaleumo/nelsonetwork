@@ -4,7 +4,6 @@ from rest_framework import serializers, status
 from django.core.exceptions import ObjectDoesNotExist
 from nelsonetworkapi.models import Documentation, Device
 
-
 class DocumentationView(ViewSet):
     """API ViewSet for managing device documentation"""
 
@@ -26,17 +25,14 @@ class DocumentationView(ViewSet):
     def create(self, request):
         """Handle POST requests to create a new documentation entry"""
         try:
-            device = Device.objects.get(device_name=request.data["device_name"])
-
+            device = Device.objects.get(pk=request.data["device_id"])  # Use PK instead of device_name
             documentation = Documentation.objects.create(
-                device_name=device,
+                device=device,  # Match model field name
                 device_type=request.data["device_type"],
                 configuration=request.data["configuration"]
             )
-
             serializer = DocumentationSerializer(documentation)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
         except KeyError as e:
             return Response({"message": f"Missing required field: {e.args[0]}"}, status=status.HTTP_400_BAD_REQUEST)
         except Device.DoesNotExist:
@@ -46,21 +42,15 @@ class DocumentationView(ViewSet):
         """Handle PUT requests to update a documentation entry"""
         try:
             documentation = Documentation.objects.get(pk=pk)
-
-            # Update ForeignKey if provided
-            if "device_name" in request.data:
-                documentation.device_name = Device.objects.get(device_name=request.data["device_name"])
-
-            # Update fields if provided
+            if "device_id" in request.data:  # Use device_id for ForeignKey
+                documentation.device = Device.objects.get(pk=request.data["device_id"])
             if "device_type" in request.data:
                 documentation.device_type = request.data["device_type"]
             if "configuration" in request.data:
                 documentation.configuration = request.data["configuration"]
-
             documentation.save()
             serializer = DocumentationSerializer(documentation)
             return Response(serializer.data, status=status.HTTP_200_OK)
-
         except Documentation.DoesNotExist:
             return Response({"message": "Documentation not found"}, status=status.HTTP_404_NOT_FOUND)
         except Device.DoesNotExist:
@@ -75,10 +65,9 @@ class DocumentationView(ViewSet):
         except Documentation.DoesNotExist:
             return Response({'message': 'Documentation not found'}, status=status.HTTP_404_NOT_FOUND)
 
-
 class DocumentationSerializer(serializers.ModelSerializer):
     """JSON serializer for Documentation"""
     class Meta:
         model = Documentation
-        fields = ['id', 'device_name', 'device_type', 'configuration']
+        fields = ['id', 'device', 'device_type', 'configuration']  
         depth = 1  # To include related device details
