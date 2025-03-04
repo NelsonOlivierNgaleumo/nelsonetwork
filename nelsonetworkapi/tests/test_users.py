@@ -32,7 +32,7 @@ class UserTests(APITestCase):
         
         self.assertEqual(expected, response.data)
 
-    # Test retrieving a single user
+    # Test to GET a single user
     # run this command: python manage.py test nelsonetworkapi.tests.test_users
     
     def test_get_user(self):
