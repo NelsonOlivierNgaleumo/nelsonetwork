@@ -8,7 +8,7 @@ Click on the following Link to the [API Documentation](https://documenter.getpos
 
 # Getting Started
 - Fork this repo  
-- Clone repo to your machine using *git clone https://github.com/NelsonOlivierNgaleumo/nelsonetwork.git*    
+- Clone repo to your machine using "*git clone https://github.com/NelsonOlivierNgaleumo/nelsonetwork.git*"    
 - Navigate to project directory *cd nelsonetwork* 
 - Activate the Pipenv environment with *pipenv shell*  
 - Install the dependencies using *pipenv install*  
@@ -21,8 +21,6 @@ Click on the following Link to the [API Documentation](https://documenter.getpos
 - The User wants to create a network/ subnetwork for his business  
 - The User wants to add various devices to that network he just created for his business  
 - The User wants to Check all the devices present in a network, know when to perform system updates and maintainance  
-- 
-- ....
 
 # Features
 - *Network Management*: Create and manage network configurations, including network name, type, IP address, and staff size. Perform CRUD operations on network.  
