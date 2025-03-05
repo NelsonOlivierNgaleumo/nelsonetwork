@@ -50,7 +50,7 @@ Click on the following Link to the [API Documentation](https://documenter.getpos
 # Interesting Links
 - [API Documentation Link](https://documenter.getpostman.com/view/35134770/2sAYdhHVGZ)  
 - Entity Relationship Diagram, [ERD Link](https://dbdiagram.io/d/NELSONETWORK-67a8e9ce263d6cf9a08915e6)
-- Video for Endpoints Display on Postman [Postman Video Link](https://www.loom.com/share/34fc5b416aa44e7eab0c59d4b2030c4d)
+- Video for Endpoints Display on Postman [Postman Video Link](https://www.loom.com/share/34fc5b416aa44e7eab0c59d4b2030c4d) [Videolink2](https://www.loom.com/share/6fb4c220f97f4264b96229a9a04e626c)[Videolink3](https://www.loom.com/share/bea8048d421a450995111fea1aed083a)
 - Integration tests for CRUD operations on all entities (network, device, documentation, networkdevices) [Integration Tests Video](https://www.loom.com/share/4eb2043f318342bfb15fccc5f5658c2b)
 
 # Code Snippet
